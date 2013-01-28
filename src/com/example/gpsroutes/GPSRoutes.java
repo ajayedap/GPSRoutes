@@ -14,14 +14,19 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class GPSRoutes extends Activity {
 
 	private Location lastKnownLocation;
+	private RouteDataBase rdb;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
+		
+		rdb = new RouteDataBase(this);
+		rdb.open();
+		
 		final LocationManager locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
 		final Button mainButton = (Button)findViewById(R.id.button1);
 		Button mapsButton = (Button)findViewById(R.id.buttonMaps);
@@ -33,9 +38,9 @@ public class MainActivity extends Activity {
 				TextView tv = (TextView)findViewById(R.id.textView1);
 				tv.setText("GPS: "+locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)+
 						" "+"NETWORK: "+checkInternetConnection(v.getContext()));				
-				if (!checkInternetConnection(v.getContext())){
+				/*if (!checkInternetConnection(v.getContext())){
 					startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-				}
+				}*/
 				
 				lastKnownLocation = getLastKnownLocation(locationManager);
 				
@@ -46,7 +51,7 @@ public class MainActivity extends Activity {
 				textViewLO.setText("LO: "+lastKnownLocation.getLongitude());
 				
 				textViewLA.setVisibility(TextView.VISIBLE);
-				textViewLO.setVisibility(TextView.VISIBLE);			
+				textViewLO.setVisibility(TextView.VISIBLE);
 				
 			}
 			boolean checkInternetConnection(Context context) {
@@ -68,13 +73,14 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				lastKnownLocation = getLastKnownLocation(locationManager);
+				/*lastKnownLocation = getLastKnownLocation(locationManager);
 				String lat = ""+lastKnownLocation.getLatitude();
 				String lon = ""+lastKnownLocation.getLongitude();
 				Intent webIntent = new Intent(v.getContext(),RouteWebActivity.class);
 				webIntent.putExtra("lat", lat);
 				webIntent.putExtra("lon", lon);
-				startActivity(webIntent);				
+				startActivity(webIntent);*/
+				startService(new Intent(v.getContext(),RouteTracking.class));
 			}
 		});
 		
@@ -114,6 +120,12 @@ public class MainActivity extends Activity {
 		Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 		locationManager.removeUpdates(locationListener);
 		return lastKnownLocation;
+	}
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		rdb.close();
 	}
 	
 	

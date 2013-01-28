@@ -43,6 +43,8 @@ int string common_google_play_services_unknown_issue 0x7f050009
 int string common_google_play_services_update_button 0x7f05000a
 int string common_google_play_services_update_text 0x7f050008
 int string common_google_play_services_update_title 0x7f050007
+int string local_service_started 0x7f05000e
+int string local_service_stopped 0x7f05000f
 int string network_status 0x7f05000b
 int string text_for_button 0x7f05000c
 int style Buttonmy_button_style 0x7f060000

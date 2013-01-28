@@ -3,5 +3,7 @@
     <string name="network_status">Network Status</string>
     <string name="text_for_button">PushMeNow</string>
     <string name="app_name">GPSRoutes</string>
+    <string name="local_service_started">LocalService was started</string>
+    <string name="local_service_stopped">LocalService was stopped</string>
     
 </resources>
