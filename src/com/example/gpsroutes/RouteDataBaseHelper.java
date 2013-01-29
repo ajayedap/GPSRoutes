@@ -25,18 +25,11 @@ public class RouteDataBaseHelper extends SQLiteOpenHelper {
 		// TODO Auto-generated constructor stub
     	super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
-    
-	/*public RouteDataBase(Context context, String name, CursorFactory factory,
-			int version) {
-		super(context, name, factory, version);
-		// TODO Auto-generated constructor stub
-	}*/
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
 		db.execSQL(DATABASE_CREATE);
-		
 	}
 
 	@Override
@@ -48,5 +41,7 @@ public class RouteDataBaseHelper extends SQLiteOpenHelper {
 		    db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
 		    onCreate(db);
 	}
+	
+
     
 }

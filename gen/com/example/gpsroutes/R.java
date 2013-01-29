@@ -137,16 +137,17 @@ containing a value of this type.
         public static final int ic_launcher=0x7f020006;
     }
     public static final class id {
-        public static final int button1=0x7f040004;
-        public static final int buttonMaps=0x7f040008;
+        public static final int button1=0x7f040007;
+        public static final int buttonMaps=0x7f040006;
         public static final int none=0x7f040000;
         public static final int normal=0x7f040001;
         public static final int satellite=0x7f040002;
         public static final int terrain=0x7f040003;
-        public static final int textView1=0x7f040005;
-        public static final int textViewLA=0x7f040006;
-        public static final int textViewLO=0x7f040007;
-        public static final int webView1=0x7f040009;
+        public static final int textView1=0x7f040008;
+        public static final int textViewLA=0x7f040004;
+        public static final int textViewLO=0x7f040005;
+        public static final int toggleButtonServiceStatus=0x7f040009;
+        public static final int webView1=0x7f04000a;
     }
     public static final class layout {
         public static final int main_activity=0x7f030000;

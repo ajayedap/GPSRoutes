@@ -12,7 +12,10 @@ import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 public class GPSRoutes extends Activity {
 
@@ -23,13 +26,13 @@ public class GPSRoutes extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
+		final LocationManager locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
+		lastKnownLocation = getLastKnownLocation(locationManager);
 		
 		rdb = new RouteDataBase(this);
 		rdb.open();
 		
-		final LocationManager locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
-		final Button mainButton = (Button)findViewById(R.id.button1);
-		Button mapsButton = (Button)findViewById(R.id.buttonMaps);
+		/*final Button mainButton = (Button)findViewById(R.id.button1);
 		mainButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -38,11 +41,11 @@ public class GPSRoutes extends Activity {
 				TextView tv = (TextView)findViewById(R.id.textView1);
 				tv.setText("GPS: "+locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)+
 						" "+"NETWORK: "+checkInternetConnection(v.getContext()));				
-				/*if (!checkInternetConnection(v.getContext())){
-					startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-				}*/
+				//if (!checkInternetConnection(v.getContext())){
+				//	startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+				//}
 				
-				lastKnownLocation = getLastKnownLocation(locationManager);
+				
 				
 				TextView textViewLA = (TextView)findViewById(R.id.textViewLA);
 				TextView textViewLO = (TextView)findViewById(R.id.textViewLO);
@@ -67,25 +70,45 @@ public class GPSRoutes extends Activity {
 			        return false;
 			    }
 			}
-		});
+		});*/
+		Button mapsButton = (Button)findViewById(R.id.buttonMaps);
 		mapsButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				/*lastKnownLocation = getLastKnownLocation(locationManager);
+				/*lastKnownLocation = getLastKnownLocation(locationManager);*/
 				String lat = ""+lastKnownLocation.getLatitude();
 				String lon = ""+lastKnownLocation.getLongitude();
 				Intent webIntent = new Intent(v.getContext(),RouteWebActivity.class);
 				webIntent.putExtra("lat", lat);
 				webIntent.putExtra("lon", lon);
-				startActivity(webIntent);*/
+				startActivity(webIntent);
 				startService(new Intent(v.getContext(),RouteTracking.class));
+				
 			}
 		});
-		
-		
-		
+		ToggleButton tButton = (ToggleButton)findViewById(R.id.toggleButtonServiceStatus);
+		tButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				// TODO Auto-generated method stub
+				if (isChecked) {
+					startService(new Intent(buttonView.getContext(),RouteTracking.class));
+				}
+				else {
+					
+				}
+			}
+		});
+		tButton.setChecked(true);
+	}
+	
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
 	}
 	
 	public Location getLastKnownLocation(LocationManager locationManager){
@@ -125,7 +148,9 @@ public class GPSRoutes extends Activity {
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		rdb.close();
+		try {
+			rdb.close();
+		} catch (Exception e) {}
 	}
 	
 	

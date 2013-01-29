@@ -3,25 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <Button
-        android:id="@+id/button1"
-        style="@style/Buttonmy_button_style"
-        android:layout_width="fill_parent"
-        android:layout_height="80dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_centerInParent="true"
-        android:text="@string/text_for_button" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="24dp"
-        android:text="@string/network_status" />
-
     <TextView
         android:id="@+id/textViewLA"
         android:layout_width="wrap_content"
@@ -50,5 +31,31 @@
         android:layout_centerHorizontal="true"
         style="@style/Buttonmy_button_style"
         android:text="GoogleMaps" />
+
+    <Button
+        android:id="@+id/button1"
+        style="@style/Buttonmy_button_style"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/buttonMaps"
+        android:text="@string/text_for_button" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/network_status" />
+
+    <ToggleButton
+        android:id="@+id/toggleButtonServiceStatus"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button1"
+        android:layout_centerHorizontal="true"
+        style="@style/Buttonmy_button_style"
+        android:text="ToggleButton" />
 
 </RelativeLayout>
